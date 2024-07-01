@@ -4,6 +4,8 @@ import logging
 import numpy as np
 import supersuit as ss
 
+from harl.models.base import act
+
 logging.basicConfig()
 logging.getLogger().setLevel(logging.ERROR)
 
@@ -34,14 +36,26 @@ class PettingZooMPEEnv:
         self.n_agents = self.env.num_agents
         self.agents = self.env.agents
         self.share_observation_space = self.repeat(self.env.state_space)
+        print(f"share_observation_space:{self.share_observation_space}")
         self.observation_space = self.unwrap(self.env.observation_spaces)
+        print(f"observation_space:{self.observation_space}")
         self.action_space = self.unwrap(self.env.action_spaces)
+        print(f"action_space:{self.action_space}")
         self._seed = 0
 
     def step(self, actions):
         """
         return local_obs, global_state, rewards, dones, infos, available_actions
         """
+        
+        """
+        0: nothing
+        1: left
+        2: right
+        3: down
+        4: up
+        """
+        # print(f"{self.cur_step}: {actions}")
         if self.discrete:
             obs, rew, term, trunc, info = self.env.step(self.wrap(actions.flatten()))
         else:

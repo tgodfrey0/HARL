@@ -8,6 +8,7 @@ from harl.envs.env_wrappers import ShareSubprocVecEnv, ShareDummyVecEnv
 
 def check(value):
     """Check if value is a numpy array, if so, convert it to a torch tensor."""
+    print(value)
     output = torch.from_numpy(value) if isinstance(value, np.ndarray) else value
     return output
 
@@ -23,7 +24,10 @@ def get_shape_from_obs_space(obs_space):
         obs_shape = obs_space.shape
     elif obs_space.__class__.__name__ == "list":
         obs_shape = obs_space
+    elif obs_space.__class__.__name__ == "Discrete":
+        obs_shape = (obs_space.n,)
     else:
+        print(obs_space.__class__.__name__)
         raise NotImplementedError
     return obs_shape
 

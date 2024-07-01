@@ -6,14 +6,14 @@ seed:
   seed: 1
 device:
   # whether to use CUDA
-  cuda: True
+  cuda: False
   # whether to set CUDA deterministic
   cuda_deterministic: True
   # arg to torch.set_num_threads
   torch_threads: 4
 train:
   # number of parallel environments for training data collection
-  n_rollout_threads: 20
+  n_rollout_threads: 4
   # number of total training steps
   num_env_steps: 10000000
   # number of steps per environment per training data collection
@@ -39,9 +39,9 @@ eval:
   eval_episodes: 20
 render:
   # whether to use render
-  use_render: False
+  use_render: True
   # number of episodes to render
-  render_episodes: 10
+  render_episodes: 100
 model:
   # network parameters
   # hidden sizes for mlp module in the network
